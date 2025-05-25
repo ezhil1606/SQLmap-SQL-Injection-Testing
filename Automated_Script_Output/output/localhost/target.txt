@@ -1,0 +1,1 @@
+http://localhost:8080/ (GET)  # /usr/bin/sqlmap -u http://localhost:8080/ --batch --dump --output-dir=output --risk=3 --level=5
