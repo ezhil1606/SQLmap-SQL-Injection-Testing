@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mysql:8
+    container_name: docker-db-1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - docker_db_data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d:ro
+
+  web:
+    build: .
+    container_name: docker-php-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - db
+
+volumes:
+  docker_db_data:
